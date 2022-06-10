@@ -1,0 +1,27 @@
+DEFINE Character USING name AND gender AND charClass AND weapson
+
+    "CONSTRUCTOR"
+    SET name TO name
+    SET charClass TO charClass
+    ''...
+
+    SET skillSlot TO 2
+    SET exp TO 0
+
+    SET signatureSkill TO empty
+    IF charClass IS EQUAL TO 'rogue' THEN 
+        SET signatureSkill TO 'backstab'
+    IF charClass IS EQUAL TO 'wizard' THEN
+        SET signatureSkill TO 'fireball'
+
+
+    "METHODS"
+    SEQUENCE greeting
+        PRINT Hello, Im (NAME). Im a (RACE) (CHARCLASS)
+    ENDSEQUENCE
+
+ENDDEFINE
+
+CREATE Character theRogue WITH Zap Branigan, male, human, rogue, dagger
+
+CALL theRogue greeting
