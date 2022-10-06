@@ -6,6 +6,7 @@ class Character {
         this.charClass = _charClass
         this.weapon = _weapon
 
+        this.life = 100
         this.skillSlot = 2
         this.exp = 0
         this.lvl = 1
@@ -19,7 +20,7 @@ class Character {
         }
     }
 
-    expPoinnts() {
+    expPoints() {
         this.exp += 0.34
         this.levelUp()
     }
@@ -35,7 +36,6 @@ class Character {
     }
 
     greeting() {
-        let something = 0
         // console.log('Hello, I am ' + this.name + '. I am a ' + this.race + ' ' + this.charClass)
         console.log(`Hello, I am ${this.name}. I am a ${this.race} ${this.charClass}`)
     }
@@ -71,14 +71,14 @@ class Character {
             console.log(`${this.name} dealt ${randomDmg} points of damage to the target.`)
         }
 
-        this.expPoinnts()
+        this.expPoints()
     }
 
     useSkill() {
         if(this.skillSlot > 0) {
             console.log(`${this.name} uses ${this.signatureSkill}!`)
             this.skillSlot--
-            this.expPoinnts()
+            this.expPoints()
 
         } else {
             this.skillSlot = 0
@@ -91,6 +91,7 @@ class Character {
         console.log('STATS FOR: ' + this.name)
         console.log('CLASS: ' + this.charClass)
         console.log('RACE: ' + this.race)
+        console.log('LIFE: ' + this.life)
         console.log('LEVEL: ' + this.lvl)
         console.log('EXP: ' + this.exp)
         console.log('SKILL SLOTS: ' + this.skillSlot)
@@ -112,8 +113,53 @@ class Location {
 
 }
 
+class Tavern {
+    constructor(_name, _size, _inn, _questBoard) {
+        this.name = _name
+        this.size = _size
+        this.inn = _inn 
+        this.questBoard = _questBoard
+
+    }
+
+    drink(character) {
+        if(this.size === 'small') {
+            character.life = character.life * 0.25 + character.life
+            console.log(`${character.name} takes a drink at ${this.name} and replenishes their health by 25%!`)
+        } else if(this.size === 'medium') {
+            character.life = character.life * 0.5 + character.life
+            console.log(`${character.name} takes a drink at ${this.name} and replenishes their health by 50%!`)
+        }
+    }
+
+    sleep(character) {
+        if(this.inn === true) {
+            character.life = 100
+            character.skillSlot = 2
+            console.log(`${character.name} goes to sleep at ${this.name} Inn, and is fully rested!`)
+        } else {
+            console.log(`The ${character.charClass} is attempting to go to sleep but, there's no Inn at this Tavern...`)
+        }
+    }
+}
+
+// Main program
 let theRogue = new Character('Zap Branigan', 'male', 'human', 'Rogue', 'dagger');
 let theWizard = new Character('Gandolf', 'male', 'human', 'Wizard', 'wand');
+let homeTavern = new Tavern('The BullFrog Creek', 'small', false, true)
+
+console.log('The Rogues life is at', theRogue.life)
+theRogue.life = 50
+console.log('The Rogue is damaged, and has a life bar of', theRogue.life)
+
+homeTavern.drink(theRogue)
+console.log(`The ${theRogue.charClass}'s life is at ${theRogue.life}`)
+homeTavern.sleep(theRogue)
+
+console.log('The Rogues life is at', theRogue.life)
+
+console.log(`---`)
+theRogue.stats()
 
 // theRogue.greeting()
 // theWizard.greeting()
@@ -126,11 +172,3 @@ let theWizard = new Character('Gandolf', 'male', 'human', 'Wizard', 'wand');
 
 // theRogue.useSkill()
 // theRogue.stats()
-theRogue.stats()
-theRogue.attack()
-theRogue.attack()
-theRogue.attack()
-theRogue.attack()
-theRogue.attack()
-theRogue.attack()
-theRogue.stats()
