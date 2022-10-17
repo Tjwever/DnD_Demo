@@ -114,11 +114,11 @@ class Location {
 }
 
 class Tavern {
-    constructor(_name, _size, _inn, _questBoard) {
+    constructor(_name, _size, _hasInn, _hasQuestBoard) {
         this.name = _name
         this.size = _size
-        this.inn = _inn 
-        this.questBoard = _questBoard
+        this.hasInn = _hasInn 
+        this.hasQuestBoard = _hasQuestBoard
 
     }
 
@@ -133,7 +133,7 @@ class Tavern {
     }
 
     sleep(character) {
-        if(this.inn === true) {
+        if(this.hasInn === true) {
             character.life = 100
             character.skillSlot = 2
             console.log(`${character.name} goes to sleep at ${this.name} Inn, and is fully rested!`)
