@@ -119,7 +119,7 @@ func (c *Character) stats() {
 	fmt.Println("('=============================')")
 }
 
-func (t *Tavern) drink(character Character) {
+func (t *Tavern) drink(character *Character) {
 	if t.size == "small" {
 		character.newStartingAttributes.life = character.newStartingAttributes.life * 0.25 + character.newStartingAttributes.life
 		fmt.Println(character.name, "takes a drink at", t.name, "and replenishes their health by 25%")
@@ -129,7 +129,7 @@ func (t *Tavern) drink(character Character) {
 	}
 }
 
-func (t *Tavern) sleep(character Character) {
+func (t *Tavern) sleep(character *Character) {
 	if t.hasInn == true {
 		fmt.Println("*********sleep method block start*********")
 		fmt.Println(character)
@@ -166,14 +166,13 @@ func main() {
 	// theRogue.useSkill()
 	// theRogue.useSkill()
 	// fmt.Println("after using skill slot", theRogue.newStartingAttributes.skillSlot)
-	
 	fmt.Println(theRogue.name, "Health:", theRogue.newStartingAttributes.life)
 	fmt.Println(theRogue.name, "Skill Slot:", theRogue.newStartingAttributes.skillSlot)
 	theRogue.useSkill()
 	theRogue.dmg()
 	fmt.Println("before resting skill slot is now", theRogue.newStartingAttributes.skillSlot)
 	fmt.Println("before resting skill slot is now", theRogue.newStartingAttributes.life)
-	theTavern.sleep(theRogue)
+	theTavern.drink(&theRogue)
 	fmt.Println("after resting skill slot is now", theRogue.newStartingAttributes.skillSlot)
 	fmt.Println("after resting skill slot is now", theRogue.newStartingAttributes.life)
 

@@ -6,6 +6,8 @@ class Character {
         this.race = _race
 
         this.health = 100
+        this.skillSlot = 2
+        this.lvl = 1
         this.specialSkill
 
         if(this.charClass === 'warlock') {
