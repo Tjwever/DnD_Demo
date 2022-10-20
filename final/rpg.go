@@ -187,4 +187,6 @@ func main() {
 
 }
 
-
+// Something to add.  Want to demo how to deal with lists/arrays.  Was thinking about implementing a storage cache, or stash.
+// Maybe every character can start with a stash with a few items inside, potions, armor and such.  Stash may end up being it's own
+// class in the future, but we can use a simple property on the Character class for now.
