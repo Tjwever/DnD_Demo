@@ -2,9 +2,11 @@ package main
 
 import "fmt"
 
-///////////////////////////////////////////////////////////////////////////////
-// CLASS OR STRUCT FOR CHARACTERS
-///////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+// CHARACTER
+/////////////////////////////////////////////////////////////////////////////////////
+
+// FAUX CLASS DATA TYPE CHARACTER
 type Character struct {
 	name                  string
 	gender                string
@@ -14,54 +16,14 @@ type Character struct {
 	newStartingAttributes DefaultAttributes
 }
 
-type DefaultAttributes struct {
-	life         float64
-	skillSlot    int
-	exp          float64
-	level        int
-	baseMeleeDmg float64
-}
-
-type Location struct {
-	climate string
-	terrain string
-	country string
-	city    string
-}
-
-type Tavern struct {
-	name          string
-	size          string
-	hasInn        bool
-	hasQuestBoard bool
-}
-
-// var defaultAttributes = NewStartingAttributes( 2, 0, 1 )
-
-///////////////////////////////////////////////////////////////////////////////
-// SETTING CONSTRUCTORS FOR CLASSES / INSTANTIATING OBJECTS
-///////////////////////////////////////////////////////////////////////////////
+// FAUX CONSTRUCTOR FOR STRUCT DATA TYPE  //  FOR CHARACTER
 func NewCharacter(_name, _gender, _race, _charClass, _weapon string) *Character {
 	return &Character{_name, _gender, _race, _charClass, _weapon, *NewStartingAttributes()}
 }
 
-func NewStartingAttributes() *DefaultAttributes {
-	return &DefaultAttributes{100, 2, 0.0, 1, 10.0}
-}
-
-func NewTavern(_name string, _size string, _hasInn bool, _hasQuestBoard bool) *Tavern {
-	return &Tavern{_name, _size, _hasInn, _hasQuestBoard}
-}
-
-func Locale(_climate, _terrain, _country, _city string) *Location {
-	return &Location{_climate, _terrain, _country, _city}
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// METHODS / FUNCTION
-///////////////////////////////////////////////////////////////////////////////
+// FUNCTIONS OR METHODS THAT BELONG TO THE CHARACTER DATA TYPE
 func (c *Character) home() {
-	home := *Locale("sunny", "mountain", "mordor", "moreDoor")
+	home := *NewLocation("sunny", "mountain", "mordor", "moreDoor")
 	fmt.Println(c.name + " starts at " + home.country + " in the great city of " + home.city)
 }
 
@@ -106,6 +68,11 @@ func (c *Character) useSkill() {
 
 }
 
+func (c *Character) dmg() {
+	c.newStartingAttributes.life = 50
+	fmt.Println(c.name, "took damage!", "Health:", c.newStartingAttributes.life)
+}
+
 func (c *Character) stats() {
 	fmt.Println("('=============================')")
 	fmt.Println("STATS FOR:", c.name)
@@ -119,14 +86,82 @@ func (c *Character) stats() {
 	fmt.Println("('=============================')")
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+// CHARACTER END
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+// DEFAULT ATTRIBUTES
+/////////////////////////////////////////////////////////////////////////////////////
+
+// FAUX CLASS DATA TYPE ATTRIBUTES
+type DefaultAttributes struct {
+	life         float64
+	skillSlot    int
+	exp          float64
+	level        int
+	baseMeleeDmg float64
+}
+
+// FAUX CONSTRUCTOR FOR STRUCT DATA TYPE  //  FOR ATTRIBUTES
+func NewStartingAttributes() *DefaultAttributes {
+	return &DefaultAttributes{100, 2, 0.0, 1, 10.0}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+// DEFAULT ATTRIBUTES END
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+// LOCATION
+/////////////////////////////////////////////////////////////////////////////////////
+
+// FAUX CLASS DATA TYPE LOCATION
+type Location struct {
+	climate string
+	terrain string
+	country string
+	city    string
+}
+
+// FAUX CONSTRUCTOR FOR STRUCT DATA TYPE  //  FOR LOCATION
+func NewLocation(_climate, _terrain, _country, _city string) *Location {
+	return &Location{_climate, _terrain, _country, _city}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+// LOCATION END
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+// TAVERN 
+/////////////////////////////////////////////////////////////////////////////////////
+
+// FAUX CLASS DATA TYPE TAVERN
+type Tavern struct {
+	name          string
+	size          string
+	hasInn        bool
+	hasQuestBoard bool
+}
+
+// FAUX CONSTRUCTOR FOR STRUCT DATA TYPE  //  FOR TAVERN
+func NewTavern(_name string, _size string, _hasInn bool, _hasQuestBoard bool) *Tavern {
+	return &Tavern{_name, _size, _hasInn, _hasQuestBoard}
+}
+
+// FUNCTIONS OR METHODS THAT BELONG TO THE TAVERN DATA TYPE
 func (t *Tavern) drink(character *Character) {
 	if t.size == "small" {
 		character.newStartingAttributes.life = character.newStartingAttributes.life * 0.25 + character.newStartingAttributes.life
 		fmt.Println(character.name, "takes a drink at", t.name, "and replenishes their health by 25%")
-	} else if t.size == "medium" {
-		character.newStartingAttributes.life = character.newStartingAttributes.life * 0.50 + character.newStartingAttributes.life
-		fmt.Println(character.name, "takes a drink at", t.name, "and replenishes their health by 50%")
-	}
+		} else if t.size == "medium" {
+			character.newStartingAttributes.life = character.newStartingAttributes.life * 0.50 + character.newStartingAttributes.life
+			fmt.Println(character.name, "takes a drink at", t.name, "and replenishes their health by 50%")
+		}
 }
 
 func (t *Tavern) sleep(character *Character) {
@@ -143,12 +178,12 @@ func (t *Tavern) sleep(character *Character) {
 		} else {
 			fmt.Println(character.name, "is attempting to go to sleep at", t.name, "Inn, but there is no Inn here...")
 		}
-}
+	}
 
-func (c *Character) dmg() {
-	c.newStartingAttributes.life = 50
-	fmt.Println(c.name, "took damage!", "Health:", c.newStartingAttributes.life)
-}
+/////////////////////////////////////////////////////////////////////////////////////
+// TAVERN END
+/////////////////////////////////////////////////////////////////////////////////////
+	
 
 ///////////////////////////////////////////////////////////////////////////////
 // MAIN FUNCTION
